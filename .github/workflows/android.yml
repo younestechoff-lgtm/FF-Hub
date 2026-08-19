@@ -45,8 +45,15 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleRelease
 
+      - name: Find APK
+        run: |
+          echo "Searching for APK files..."
+          find android -type f -name "*.apk" -print
+
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: FF-Hub-Release-APK
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: |
+            android/**/build/outputs/**/*.apk
+          if-no-files-found: error
