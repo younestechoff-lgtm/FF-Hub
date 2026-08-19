@@ -40,12 +40,16 @@ jobs:
           KEYSTORE_FILE: ${{ runner.temp }}/ffhub-release.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease
 
       - name: Find APK
+        run: |
+          echo "Searching for APK files..."
+          find android -type f -name "*.apk" -print
         run: |
           echo "Searching for APK files..."
           find android -type f -name "*.apk" -print
