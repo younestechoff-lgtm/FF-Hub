@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/ffhub-release.jks"
 
-      - name: Build signed Release APK
+      - name: Build Release APK
         env:
           KEYSTORE_FILE: ${{ runner.temp }}/ffhub-release.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -50,14 +50,10 @@ jobs:
         run: |
           echo "Searching for APK files..."
           find android -type f -name "*.apk" -print
-        run: |
-          echo "Searching for APK files..."
-          find android -type f -name "*.apk" -print
 
-      - name: Upload Release APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: FF-Hub-Release-APK
-          path: |
-            android/**/build/outputs/**/*.apk
+          path: android/**/build/outputs/**/*.apk
           if-no-files-found: error
