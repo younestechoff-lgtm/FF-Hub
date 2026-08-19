@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090d">
+<title>FF Hub - حاسبة الدقة</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+<div>
+<span class="welcome">FF HUB</span>
+<h2>حاسبة الدقة</h2>
+</div>
+
+<button class="icon-button" onclick="location.href='tools.html'">←</button>
+</header>
+
+<section class="hero">
+<span class="hero-label">ACCURACY</span>
+<h1>احسب دقتك</h1>
+<p>أدخل عدد الطلقات التي أطلقتها وعدد الطلقات التي أصابت الهدف.</p>
+</section>
+
+<div class="generator-box">
+
+<label>إجمالي الطلقات</label>
+
+<input
+id="shots"
+type="number"
+min="1"
+placeholder="مثال: 500">
+
+<label>الطلقات التي أصابت الهدف</label>
+
+<input
+id="hits"
+type="number"
+min="0"
+placeholder="مثال: 350">
+
+<button
+class="generate-button"
+onclick="calculateAccuracy()">
+
+احسب الدقة
+
+</button>
+
+</div>
+
+<div id="accuracyResult" class="tool-placeholder">
+
+أدخل البيانات ثم اضغط على زر الحساب.
+
+</div>
+
+</main>
+
+<script>
+
+function calculateAccuracy() {
+
+const shots =
+Number(document.getElementById("shots").value);
+
+const hits =
+Number(document.getElementById("hits").value);
+
+const result =
+document.getElementById("accuracyResult");
+
+if (!shots || shots <= 0) {
+
+result.innerHTML =
+"⚠️ أدخل عدد الطلقات بشكل صحيح.";
+
+return;
+
+}
+
+if (hits < 0 || hits > shots) {
+
+result.innerHTML =
+"⚠️ عدد الطلقات المصيبة لا يمكن أن يكون أكبر من إجمالي الطلقات.";
+
+return;
+
+}
+
+const accuracy =
+(hits / shots) * 100;
+
+let level;
+
+if (accuracy >= 90) {
+
+level = "ممتاز جدًا 🔥";
+
+} else if (accuracy >= 75) {
+
+level = "ممتاز 💪";
+
+} else if (accuracy >= 60) {
+
+level = "جيد 👍";
+
+} else if (accuracy >= 40) {
+
+level = "متوسط";
+
+} else {
+
+level = "تحتاج إلى تدريب 🎯";
+
+}
+
+result.innerHTML = `
+
+<div style="text-align:center">
+
+<div style="
+font-size:42px;
+font-weight:900;
+color:#ffb000;
+">
+
+${accuracy.toFixed(1)}%
+
+</div>
+
+<div style="
+margin-top:10px;
+font-size:16px;
+font-weight:700;
+">
+
+${level}
+
+</div>
+
+<div style="
+margin-top:12px;
+color:#9297a5;
+font-size:12px;
+">
+
+${hits} إصابة من أصل ${shots} طلقة
+
+</div>
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>

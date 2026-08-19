@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090d">
+<title>FF Hub - الأخبار</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+<div>
+<span class="welcome">FF HUB</span>
+<h2>الأخبار</h2>
+</div>
+
+<button class="icon-button" onclick="location.href='index.html'">←</button>
+</header>
+
+<section class="hero">
+<span class="hero-label">FREE FIRE NEWS</span>
+<h1>آخر الأخبار</h1>
+<p>تابع آخر أخبار وتحديثات فري فاير.</p>
+</section>
+
+<div class="news-filters">
+
+<button class="news-filter active-news"
+onclick="filterNews('all', this)">
+الكل
+</button>
+
+<button class="news-filter"
+onclick="filterNews('updates', this)">
+تحديثات
+</button>
+
+<button class="news-filter"
+onclick="filterNews('events', this)">
+فعاليات
+</button>
+
+</div>
+
+<section class="news-list">
+
+<article
+class="news-card"
+data-category="updates"
+onclick="location.href='news-update.html'">
+
+<div class="news-image">UPDATE</div>
+
+<div class="news-content">
+<span class="news-category">تحديثات</span>
+<h3>آخر تحديثات Free Fire</h3>
+<p>تابع أهم التغييرات والمميزات الجديدة في اللعبة.</p>
+</div>
+
+</article>
+
+
+<article
+class="news-card"
+data-category="events"
+onclick="location.href='news-event.html'">
+
+<div class="news-image">EVENT</div>
+
+<div class="news-content">
+<span class="news-category">فعاليات</span>
+<h3>فعاليات ومكافآت جديدة</h3>
+<p>اكتشف الفعاليات والمكافآت المتاحة للاعبين.</p>
+</div>
+
+</article>
+
+
+<article
+class="news-card"
+data-category="updates"
+onclick="location.href='news-community.html'">
+
+<div class="news-image">FF HUB</div>
+
+<div class="news-content">
+<span class="news-category">مجتمع</span>
+<h3>أخبار مجتمع Free Fire</h3>
+<p>أهم المعلومات والأخبار التي تهم اللاعبين.</p>
+</div>
+
+</article>
+
+</section>
+
+</main>
+
+<script>
+
+function filterNews(category, button) {
+
+document.querySelectorAll(".news-filter")
+.forEach(btn => btn.classList.remove("active-news"));
+
+button.classList.add("active-news");
+
+document.querySelectorAll(".news-card")
+.forEach(card => {
+
+card.style.display =
+category === "all" ||
+card.dataset.category === category
+? ""
+: "none";
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

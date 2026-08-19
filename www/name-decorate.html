@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090d">
+<title>FF Hub - مولّد الزخارف</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+<div>
+<span class="welcome">FF HUB</span>
+<h2>مولّد الزخارف</h2>
+</div>
+
+<button class="icon-button" onclick="location.href='tools.html'">←</button>
+</header>
+
+<section class="hero">
+<span class="hero-label">DECORATOR</span>
+<h1>زخرف اسمك</h1>
+<p>اكتب اسمك واختر الزخرفة التي تعجبك.</p>
+</section>
+
+<div class="generator-box">
+
+<input id="nameInput" type="text" maxlength="20"
+placeholder="اكتب اسمك هنا">
+
+<button class="generate-button" onclick="decorate()">
+زخرفة الاسم
+</button>
+
+</div>
+
+<div id="results" class="name-results"></div>
+
+</main>
+
+<script>
+
+const styles = [
+"꧁༺ {name} ༻꧂",
+"『★ {name} ★』",
+"乂 {name} 乂",
+"亗 {name} 亗",
+"么 {name} 么",
+"〆 {name} 〆",
+"ツ {name} ツ",
+"彡 {name} 彡",
+"『FF』 {name}",
+"★彡 {name} 彡★",
+"×͜× {name}",
+"꧁ {name} ꧂"
+];
+
+function decorate() {
+
+const input =
+document.getElementById("nameInput").value.trim();
+
+const results =
+document.getElementById("results");
+
+if (!input) {
+results.innerHTML =
+'<p class="empty-message">اكتب اسمًا أولاً.</p>';
+return;
+}
+
+results.innerHTML = styles.map(style => {
+
+const name = style.replace("{name}", input);
+
+const safeName =
+name.replace(/'/g, "\\'");
+
+return `
+<div class="name-result">
+
+<span>${name}</span>
+
+<button onclick="copyName('${safeName}', this)">
+نسخ
+</button>
+
+</div>
+`;
+
+}).join("");
+
+}
+
+function copyName(name, button) {
+
+navigator.clipboard.writeText(name).then(() => {
+
+const old = button.textContent;
+
+button.textContent = "تم ✓";
+
+setTimeout(() => {
+button.textContent = old;
+}, 1200);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

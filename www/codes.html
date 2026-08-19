@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>FF Hub - الأكواد</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+  <div>
+    <span class="welcome">FF HUB</span>
+    <h2>أكواد الاسترداد</h2>
+  </div>
+
+  <button class="icon-button" onclick="location.href='index.html'">←</button>
+</header>
+
+<section class="hero">
+  <span class="hero-label">REDEEM CODES</span>
+  <h1>أكواد فري فاير</h1>
+  <p>ابحث عن الكود وانسخه بضغطة واحدة.</p>
+</section>
+
+</div>
+
+<div class="code-search">
+  <input
+    id="searchInput"
+    type="search"
+    placeholder="ابحث عن كود..."
+    oninput="filterCodes()">
+</div>
+
+<div class="code-filters">
+  <button class="filter active-filter" onclick="filterStatus('all', this)">الكل</button>
+  <button class="filter" onclick="filterStatus('available', this)">🟢 متاح</button>
+  <button class="filter" onclick="filterStatus('expired', this)">🔴 منتهي</button>
+  <button class="filter" onclick="filterStatus('unknown', this)">🟡 غير مؤكد</button>
+</div>
+
+<h3 class="section-title">الأكواد</h3>
+
+<div id="codesList" class="codes-list">
+
+<script>
+
+const codes = [
+["FFHUB-A7K2-M9P4","available"],
+["FFHUB-B3X8-Q1L6","available"],
+["FFHUB-C9M5-R4T2","expired"],
+["FFHUB-D6P1-V8K3","available"],
+["FFHUB-E2Q7-Z5N9","unknown"],
+["FFHUB-F4L8-H2M6","available"],
+["FFHUB-G1R5-X9C7","expired"],
+["FFHUB-H8N3-P6T1","available"],
+["FFHUB-J5K9-W2Q4","unknown"],
+["FFHUB-K7M2-Y8L5","available"],
+["FFHUB-L4C6-R1P9","expired"],
+["FFHUB-M9T3-V5X7","available"],
+["FFHUB-N2Q8-H6K4","unknown"],
+["FFHUB-P6L1-Z9M3","available"],
+["FFHUB-Q8R4-C2T7","expired"],
+["FFHUB-R5X9-N1K6","available"],
+["FFHUB-S3M7-P8L2","unknown"],
+["FFHUB-T1V6-Q4C9","available"],
+["FFHUB-U9K5-X2R8","expired"],
+["FFHUB-V7P3-M6N1","available"],
+["FFHUB-W4L8-T9Q2","unknown"],
+["FFHUB-X6C1-R5M7","available"],
+["FFHUB-Y2N9-K4P6","expired"],
+["FFHUB-Z8Q3-V1L5","available"],
+["FFHUB-A5R7-M2X9","unknown"],
+["FFHUB-B9K4-T6P1","available"],
+["FFHUB-C3L8-Q7N5","expired"],
+["FFHUB-D1M6-X4R9","available"],
+["FFHUB-E7P2-K8V5","unknown"],
+["FFHUB-F9Q6-L3T1","available"],
+["FFHUB-G5X2-N8M4","expired"],
+["FFHUB-H1R7-C6P9","available"],
+["FFHUB-J8K3-V2Q5","unknown"],
+["FFHUB-K4M9-T1L6","available"],
+["FFHUB-L7P5-X3R8","expired"],
+["FFHUB-M2Q6-N9C4","available"],
+["FFHUB-N8L1-K5V7","unknown"],
+["FFHUB-P3R9-T6M2","available"],
+["FFHUB-Q5X7-C1L8","expired"],
+["FFHUB-R2K4-V9P6","available"],
+["FFHUB-S8M3-Q5N1","unknown"],
+["FFHUB-T6L9-X2C7","available"],
+["FFHUB-U4P1-R8K5","expired"],
+["FFHUB-V9Q2-M6L3","available"],
+["FFHUB-W7N5-T1X8","unknown"],
+["FFHUB-X3C9-P4R6","available"],
+["FFHUB-Y6K1-M8Q5","expired"],
+["FFHUB-Z4L7-V2N9","available"],
+["FFHUB-A8P5-R3K6","unknown"]
+];
+
+const statusInfo = {
+  available: ["🟢 متاح", "active"],
+  expired: ["🔴 منتهي", "expired-status"],
+  unknown: ["🟡 غير مؤكد", "unknown-status"]
+};
+
+document.write(
+  codes.map((item, index) => {
+
+    const code = item[0];
+    const status = item[1];
+
+    return `
+      <div class="code-card ${status === "expired" ? "expired" : ""}"
+           data-status="${status}"
+           data-code="${code}">
+
+        <div class="code-top">
+
+          <span class="code-status ${statusInfo[status][1]}">
+            ${statusInfo[status][0]}
+          </span>
+
+          <span class="code-reward">
+            🎁 مكافأة غير محددة
+          </span>
+
+        </div>
+
+        <div class="code-value">
+          ${code}
+        </div>
+
+        ${
+          status === "expired"
+          ?
+          `<button class="copy-button" disabled>منتهي</button>`
+          :
+          `<button class="copy-button" onclick="copyCode(this)">
+             نسخ الكود
+           </button>`
+        }
+
+      </div>
+    `;
+  }).join("")
+);
+
+</script>
+
+</div>
+
+<p id="noResults" class="no-results hidden">
+  لا توجد نتائج.
+</p>
+
+</main>
+
+<script>
+
+let currentStatus = "all";
+
+function filterCodes() {
+
+  const search = document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  let visible = 0;
+
+  document.querySelectorAll(".code-card").forEach(card => {
+
+    const code = card.dataset.code.toLowerCase();
+    const status = card.dataset.status;
+
+    const matchSearch = code.includes(search);
+
+    const matchStatus =
+      currentStatus === "all" ||
+      status === currentStatus;
+
+    if (matchSearch && matchStatus) {
+      card.style.display = "";
+      visible++;
+    } else {
+      card.style.display = "none";
+    }
+
+  });
+
+  document.getElementById("noResults")
+    .classList.toggle("hidden", visible !== 0);
+}
+
+function filterStatus(status, button) {
+
+  currentStatus = status;
+
+  document.querySelectorAll(".filter").forEach(btn => {
+    btn.classList.remove("active-filter");
+  });
+
+  button.classList.add("active-filter");
+
+  filterCodes();
+}
+
+function copyCode(button) {
+
+  const code = button
+    .parentElement
+    .querySelector(".code-value")
+    .textContent
+    .trim();
+
+  navigator.clipboard.writeText(code).then(() => {
+
+    const oldText = button.textContent;
+
+    button.textContent = "تم النسخ ✓";
+
+    setTimeout(() => {
+      button.textContent = oldText;
+    }, 1500);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>

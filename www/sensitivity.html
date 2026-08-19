@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090d">
+<title>FF Hub - حاسبة الحساسية</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+<div>
+<span class="welcome">FF HUB</span>
+<h2>حاسبة الحساسية</h2>
+</div>
+
+<button class="icon-button" onclick="location.href='tools.html'">←</button>
+</header>
+
+<section class="hero">
+<span class="hero-label">SENSITIVITY</span>
+<h1>حاسبة الحساسية</h1>
+<p>أدخل إعداداتك الحالية للحصول على إعداد مقترح.</p>
+</section>
+
+<div class="generator-box">
+
+<label>الحساسية العامة</label>
+<input id="general" type="number" min="0" max="200" placeholder="مثال: 90">
+
+<label>النقطة الحمراء</label>
+<input id="redDot" type="number" min="0" max="200" placeholder="مثال: 85">
+
+<label>منظار 2X</label>
+<input id="scope2" type="number" min="0" max="200" placeholder="مثال: 80">
+
+<label>منظار 4X</label>
+<input id="scope4" type="number" min="0" max="200" placeholder="مثال: 75">
+
+<label>منظار القناص</label>
+<input id="sniper" type="number" min="0" max="200" placeholder="مثال: 60">
+
+<button class="generate-button" onclick="calculateSensitivity()">
+حساب الإعداد المقترح
+</button>
+
+</div>
+
+<div id="sensitivityResult" class="tool-placeholder">
+أدخل القيم ثم اضغط على زر الحساب.
+</div>
+
+</main>
+
+<script>
+
+function calculateSensitivity() {
+
+const general = Number(document.getElementById("general").value);
+const redDot = Number(document.getElementById("redDot").value);
+const scope2 = Number(document.getElementById("scope2").value);
+const scope4 = Number(document.getElementById("scope4").value);
+const sniper = Number(document.getElementById("sniper").value);
+
+if (
+general < 0 || general > 200 ||
+redDot < 0 || redDot > 200 ||
+scope2 < 0 || scope2 > 200 ||
+scope4 < 0 || scope4 > 200 ||
+sniper < 0 || sniper > 200
+) {
+
+document.getElementById("sensitivityResult").innerHTML =
+"⚠️ أدخل جميع القيم بين 0 و 200.";
+
+return;
+
+}
+
+const result = {
+
+general: Math.min(200, general + 5),
+redDot: Math.min(200, redDot + 5),
+scope2: Math.min(200, scope2 + 4),
+scope4: Math.min(200, scope4 + 3),
+sniper: Math.min(200, sniper + 2)
+
+};
+
+document.getElementById("sensitivityResult").innerHTML = `
+
+<div style="text-align:right">
+
+<strong style="color:#ffb000">
+الإعداد المقترح
+</strong>
+
+<br><br>
+
+الحساسية العامة:
+<strong>${result.general}</strong>
+
+<br><br>
+
+النقطة الحمراء:
+<strong>${result.redDot}</strong>
+
+<br><br>
+
+منظار 2X:
+<strong>${result.scope2}</strong>
+
+<br><br>
+
+منظار 4X:
+<strong>${result.scope4}</strong>
+
+<br><br>
+
+منظار القناص:
+<strong>${result.sniper}</strong>
+
+<br><br>
+
+<small style="color:#9297a5">
+هذه القيم اقتراح تقريبي وليست إعدادًا مضمونًا لكل جهاز.
+</small>
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>

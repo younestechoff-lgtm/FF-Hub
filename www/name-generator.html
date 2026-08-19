@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>FF Hub - مولّد الأسماء</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+  <div>
+    <span class="welcome">FF HUB</span>
+    <h2>مولّد الأسماء</h2>
+  </div>
+
+  <button class="icon-button" onclick="location.href='tools.html'">←</button>
+</header>
+
+<section class="hero">
+  <span class="hero-label">NAME GENERATOR</span>
+  <h1>مولّد أسماء فري فاير</h1>
+  <p>اكتب اسمًا وسيتم إنشاء أسماء مزخرفة لك.</p>
+</section>
+
+<div class="generator-box">
+
+  <input
+    id="nameInput"
+    type="text"
+    maxlength="15"
+    placeholder="اكتب اسمك هنا">
+
+  <button class="generate-button" onclick="generateNames()">
+    توليد أسماء
+  </button>
+
+</div>
+
+<div id="results" class="name-results"></div>
+
+</main>
+
+<script>
+
+const styles = [
+  "亗 {name} 亗",
+  "『{name}』",
+  "꧁{name}꧂",
+  "乂{name}乂",
+  "★{name}★",
+  "么{name}么",
+  "〆{name}〆",
+  "ツ{name}ツ",
+  "『FF』{name}",
+  "×͜× {name}"
+];
+
+function generateNames() {
+
+  const input = document
+    .getElementById("nameInput")
+    .value
+    .trim();
+
+  const results = document.getElementById("results");
+
+  if (!input) {
+    results.innerHTML =
+      '<p class="empty-message">اكتب اسمًا أولاً.</p>';
+    return;
+  }
+
+  results.innerHTML = styles.map((style, index) => {
+
+    const name = style.replace("{name}", input);
+
+    return `
+      <div class="name-result">
+        <span>${name}</span>
+        <button onclick="copyName('${name.replace(/'/g, "\\'")}', this)">
+          نسخ
+        </button>
+      </div>
+    `;
+
+  }).join("");
+}
+
+function copyName(name, button) {
+
+  navigator.clipboard.writeText(name).then(() => {
+
+    const oldText = button.textContent;
+
+    button.textContent = "تم ✓";
+
+    setTimeout(() => {
+      button.textContent = oldText;
+    }, 1200);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090d">
+<title>FF Hub - الإعدادات</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+<div>
+<span class="welcome">FF HUB</span>
+<h2>الإعدادات</h2>
+</div>
+
+<button class="icon-button"
+onclick="location.href='index.html'">←</button>
+</header>
+
+<section class="hero">
+<span class="hero-label">SETTINGS</span>
+<h1>إعدادات التطبيق</h1>
+<p>تحكم في بعض خصائص FF Hub.</p>
+</section>
+
+<section class="settings-list">
+
+<div class="setting-card">
+
+<div>
+<strong>🌙 الوضع الداكن</strong>
+<small>تغيير مظهر التطبيق</small>
+</div>
+
+<label class="switch">
+<input id="darkMode" type="checkbox" checked onchange="toggleDarkMode()">
+<span></span>
+</label>
+
+</div>
+
+
+<div class="setting-card">
+
+<div>
+<strong>🔔 الإشعارات</strong>
+<small>تفعيل تنبيهات التطبيق</small>
+</div>
+
+<label class="switch">
+<input id="notifications" type="checkbox" onchange="saveSettings()">
+<span></span>
+</label>
+
+</div>
+
+
+<div class="setting-card">
+
+<div>
+<strong>💾 حفظ الإعدادات</strong>
+<small>يتم حفظ اختياراتك تلقائيًا</small>
+</div>
+
+<span class="setting-status">✓</span>
+
+</div>
+
+</section>
+
+
+<div class="about-card">
+
+<strong>FF HUB</strong>
+
+<p>
+منصة للاعبي Free Fire تضم الأكواد والأدوات والنصائح والأخبار.
+</p>
+
+<small>
+الإصدار 1.0
+</small>
+
+</div>
+
+</main>
+
+<script>
+
+function toggleDarkMode() {
+
+const enabled =
+document.getElementById("darkMode").checked;
+
+localStorage.setItem(
+"darkMode",
+enabled ? "on" : "off"
+);
+
+document.body.classList.toggle(
+"light-mode",
+!enabled
+);
+
+}
+
+
+function saveSettings() {
+
+const enabled =
+document.getElementById("notifications").checked;
+
+localStorage.setItem(
+"notifications",
+enabled ? "on" : "off"
+);
+
+}
+
+
+function loadSettings() {
+
+const dark =
+localStorage.getItem("darkMode");
+
+const notifications =
+localStorage.getItem("notifications");
+
+if (dark === "off") {
+
+document.getElementById("darkMode").checked = false;
+
+document.body.classList.add("light-mode");
+
+}
+
+if (notifications === "on") {
+
+document.getElementById("notifications").checked = true;
+
+}
+
+}
+
+loadSettings();
+
+</script>
+
+</body>
+</html>

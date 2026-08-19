@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FF Hub</string>
+    <string name="title_activity_main">FF Hub</string>
+    <string name="package_name">com.ffhub.app</string>
+    <string name="custom_url_scheme">com.ffhub.app</string>
+</resources>
